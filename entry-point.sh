@@ -3,32 +3,32 @@
 #Pickup any secrets
 for f in /etc/secrets/* ; do
     if test -f "$f"; then
-        export $(basename $f)="$(eval "echo \"`<$f`\"")"
+        export $(echo $(basename $f) | awk '{print toupper($0)}')="$(eval "echo \"`<$f`\"")"
     fi
 done 
 
 cat <<- EOF > ${PWD}/keycloak-proxy/config.json
 {
-  "target-url": "${targeturl}",
-  "send-access-token": ${sendaccesstoken:-true},
-  "http-port": "${httpport}",
-  "bind-address": "${bindaddress:-localhost}",
+  "target-url": "${TARGETURL}",
+  "send-access-token": ${SENDACCESSTOKEN:-true},
+  "http-port": "${HTTPPORT}",
+  "bind-address": "${BINDADDRESS:-localhost}",
   "applications": [
     {
       "base-path": "/",
       "adapter-config": {
-        "realm": "${realm}",
-        "realm-public-key": "${realmpublickey}",
-        "auth-server-url": "${authserverurl}",
-        "ssl-required": "${sslrequired:-external}",
-        "resource": "${resource}",
+        "realm": "${REALM}",
+        "realm-public-key": "${REALMPUBLICKEY}",
+        "auth-server-url": "${AUTHSERVERURL}",
+        "ssl-required": "${SSLREQUIRED:-external}",
+        "resource": "${RESOURCE}",
         "credentials": {
-          "secret": "${secret}"
+          "secret": "${SECRET}"
         }
       },
       "constraints": [
         {
-          "pattern": "${pattern}",
+          "pattern": "${PATTERN}",
           "authenticate": true
         }
       ]
@@ -36,5 +36,7 @@ cat <<- EOF > ${PWD}/keycloak-proxy/config.json
   ]
 }
 EOF
+
+cat ${PWD}/keycloak-proxy/config.json
 
 exec java -jar ${PWD}/keycloak-proxy/bin/launcher.jar ${PWD}/keycloak-proxy/config.json
