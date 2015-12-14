@@ -12,6 +12,7 @@ cat <<- EOF > ${PWD}/keycloak-proxy/config.json
   "target-url": "${targeturl}",
   "send-access-token": ${sendaccesstoken:-true},
   "http-port": "${httpport}",
+  "bind-address": "${bindaddress:-localhost}",
   "applications": [
     {
       "base-path": "/",
