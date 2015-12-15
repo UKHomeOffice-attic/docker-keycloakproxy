@@ -1,12 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#Pickup any secrets
+set -e
+set -u
+
+####
+# Pickup any secrets.  
+# Turn them into upper case envs.  
+# Expand on any variables that contain variables.
+###
 for f in /etc/secrets/* ; do
     if test -f "$f"; then
         export $(echo $(basename $f) | awk '{print toupper($0)}')="$(eval "echo \"`<$f`\"")"
     fi
 done 
 
+####
+# Create config file.
+# Requires either envs or secrets passed
+###
 cat <<- EOF > ${PWD}/keycloak-proxy/config.json
 {
   "target-url": "${TARGETURL}",
@@ -37,6 +48,7 @@ cat <<- EOF > ${PWD}/keycloak-proxy/config.json
 }
 EOF
 
-cat ${PWD}/keycloak-proxy/config.json
-
-exec java -jar ${PWD}/keycloak-proxy/bin/launcher.jar ${PWD}/keycloak-proxy/config.json
+####
+# Execute the command.
+###
+exec $@
