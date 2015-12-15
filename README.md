@@ -19,7 +19,7 @@ These settings can either be set in the environment or added in secret files.  S
 
 ### Usage
 
-The example below will run a mailcatcher container listening on port 1025 (SMTP) and 1080 (API and UI):
+The example below will run a keycloak container.
 
 ```
 docker run --rm=true \
