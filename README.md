@@ -77,7 +77,7 @@ spec:
   template:
     metadata:
       labels:
-        name: exmaple
+        name: example
     spec:
       containers:
       - name: tls
