@@ -10,7 +10,7 @@ These settings can either be set in the environment or added in secret files.  S
 * BINDADDRESS - The bindaddress keycloak listens on.  Default is localhost which is fine for kubernetes, but you may have to bind an external address in your implementation.
 * HTTPPORT -  The port Keycloak Listens on.
 * PATTERN - The pattern you want to auth.  An example would be "/example-path" instead.  Example in usage auth's the entire site.
-* REALM - $(echo "example" | base64)
+* REALM - The name of the keycloak relam you want to auth to.
 * REALMPUBLICKEY - The public key for the realm you're using.
 * RESOURCE - Keycloak Resource
 * SECRET - Your keycloak Secret
