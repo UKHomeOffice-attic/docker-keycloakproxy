@@ -122,15 +122,15 @@ Alternativly you can run the container environment by passing enviornment variab
 docker run --rm=true \
        -p 8081:8081 \
        -v ${PWD}/secrets:/etc/secrets \
-       -e AUTHSERVERURL: $(echo "https://keycloak.example.com/auth" | base64)
-       -e BINDADDRESS: $(echo "127.0.0.1" | base64)
-       -e HTTPPORT: $(echo "8081" | base64)
-       -e PATTERN: $(echo "/*" | base64)
-       -e REALM: $(echo "example" | base64)
-       -e REALMPUBLICKEY: $(echo "your-keycloak-realm-public-key" | base64)
-       -e RESOURCE: $(echo "example-api" | base64)
-       -e SECRET: $(echo "your-keycloak-secret" | base64)
-       -e TARGETURL: $(echo "http://localhost:8000" | base64)
+       -e AUTHSERVERURL=$(echo "https://keycloak.example.com/auth" | base64) \
+       -e BINDADDRESS=$(echo "127.0.0.1" | base64) \
+       -e HTTPPORT=$(echo "8081" | base64) \
+       -e PATTERN=$(echo "/*" | base64) \
+       -e REALM=$(echo "example" | base64) \
+       -e REALMPUBLICKEY=$(echo "your-keycloak-realm-public-key" | base64) \
+       -e RESOURCE=$(echo "example-api" | base64) \
+       -e SECRET=$(echo "your-keycloak-secret" | base64) \
+       -e TARGETURL=$(echo "http://localhost:8000" | base64) \
        quay.io/ukhomeofficedigital/keycloak-proxy:v0.0.1
 ```
 
